@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>Brainstorm</h2>
+<h3>Still in progress...</h3>
+<p>Use this area to brainstorm your ideas.</p>
+<div>
+    <div id="mydiv1" class="mydiv">
+        <div id="1" onmousedown="mousedown(event)" class="mydivheader" style="background-color:#ffcc00">
+        </div>
+        <textarea id="mytext" style="resize:both;background-color:#fff0b3"></textarea>
+    </div>
+
+    <div id="mydiv2" class="mydiv" style="top: 215px; left:520px">
+        <div id="2" onmousedown="mousedown(event)" class="mydivheader">
+        </div>
+        <textarea id="mytext" style="resize:both;background-color:#b3ecff"></textarea>
+    </div>
+</div>
+
+<script>
+    var data;
+    var movingitem;
+    function mousedown(e) {
+        movingitem = "mydiv" + e.target.id;
+        data = { x: e.clientX, y: e.clientY };
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+
+    }
+    function elementDrag(e) {
+        const elmnt = document.getElementById(movingitem);
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = data.x - e.clientX;
+        pos2 = data.y - e.clientY;
+        data.x = e.clientX;
+        data.y = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement(e) {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+</script>
